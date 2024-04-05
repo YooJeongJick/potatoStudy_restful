@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -13,57 +12,35 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long save(UserDTO userDTO) {
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setAge(userDTO.getAge());
+    // 유저 등록
+    public Long save(User user) {
         userRepository.save(user);
         return user.getId();
     }
 
-    public Long update(Long id, UserDTO userDTO) {
+    // 유저 수정
+    public Long update(Long id, String newName, int newAge) {
         User updateUser = userRepository.findById(id);
-        updateUser.setName(userDTO.getName());
-        updateUser.setAge(userDTO.getAge());
         return updateUser.getId();
     }
 
+    // 유저 삭제
     public void remove(Long id) {
         userRepository.remove(id);
     }
 
-    public UserDTO findById(Long id) {
-        User user = userRepository.findById(id);
-        if (user == null) {
-            throw new IllegalArgumentException("ID에 해당하는 유저를 찾을 수 없습니다.");
-        }
-        return convertToDTO(user);
+    // id로 유저 검색
+    public User findById(Long id) {
+        return userRepository.findById(id);
     }
 
-    public UserDTO findByName(String name) {
-        User user = userRepository.findByName(name);
-        if (user == null) {
-            throw new IllegalArgumentException("이름에 해당하는 유저를 찾을 수 없습니다.");
-        }
-        return convertToDTO(user);
+    // name으로 유저 검색
+    public User findByName(String name) {
+        return userRepository.findByName(name);
     }
 
-    public List<UserDTO> findAll() {
-        List<User> users = userRepository.findAll();
-        return convertToDTOList(users);
-    }
-
-    private UserDTO convertToDTO(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
-        userDTO.setAge(user.getAge());
-        return userDTO;
-    }
-
-    private List<UserDTO> convertToDTOList(List<User> users) {
-        return users.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    // 유저 전체 검색
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

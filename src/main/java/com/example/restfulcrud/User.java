@@ -1,9 +1,9 @@
 package com.example.restfulcrud;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Entity
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
