@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
@@ -23,4 +24,5 @@ public class User {
         this.name = userDTO.getName();
         this.age = userDTO.getAge();
     }
+
 }
