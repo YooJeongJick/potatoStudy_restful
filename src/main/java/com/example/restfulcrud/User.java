@@ -19,10 +19,12 @@ public class User {
 
     private String name;
     private int age;
+    private String email;
 
     public void update(UserDTO userDTO) {
         this.name = userDTO.getName();
         this.age = userDTO.getAge();
+        this.email = userDTO.getEmail();
     }
 
 }

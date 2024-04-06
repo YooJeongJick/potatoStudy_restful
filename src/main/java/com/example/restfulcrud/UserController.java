@@ -29,14 +29,20 @@ public class UserController {
         return id + "번 유저 삭제 완료";
     }
 
-    @GetMapping("/read/{id}")
-    public User read(@PathVariable Long id) {
+    @GetMapping("/find/id/{id}")
+    public User find(@PathVariable Long id) {
         User user = userService.findById(id);
         return user;
     }
 
-    @GetMapping("/read/all")
-    public List<User> readAll() {
+    @GetMapping("/find/email/{email}")
+    public User find(@PathVariable String email) {
+        User user = userService.findByEmail(email);
+        return user;
+    }
+
+    @GetMapping("/find/all")
+    public List<User> findAll() {
         List<User> allUser = userService.findAll();
         return allUser;
     }

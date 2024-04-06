@@ -34,8 +34,13 @@ public class UserService {
 
     // 유저 검색
     public User findById(Long id) {
-        User readUser = userRepository.findById(id).orElse(null);
-        return readUser;
+        User findUser = userRepository.findById(id).orElse(null);
+        return findUser;
+    }
+
+    public User findByEmail(String email) {
+        User findUser = userRepository.findByEmail(email);
+        return findUser;
     }
 
     public List<User> findAll() {
