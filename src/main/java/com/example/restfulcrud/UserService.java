@@ -28,7 +28,6 @@ public class UserService {
 
     // 유저 삭제
     public void delete(Long id) {
-<<<<<<< HEAD
         userRepository.deleteById(id);
     }
 
@@ -49,21 +48,6 @@ public class UserService {
                 .age(findUser.getAge())
                 .email(findUser.getEmail())
                 .build();
-=======
-        User deleteUser = userRepository.findById(id).orElse(null);
-        userRepository.delete(deleteUser);
-    }
-
-    // 유저 검색
-    public User findById(Long id) {
-        User findUser = userRepository.findById(id).orElse(null);
-        return findUser;
-    }
-
-    public User findByEmail(String email) {
-        User findUser = userRepository.findByEmail(email);
-        return findUser;
->>>>>>> 462dda54bb297b230009672a6bb5ea913f78deca
     }
 
     public List<User> findAll() {
