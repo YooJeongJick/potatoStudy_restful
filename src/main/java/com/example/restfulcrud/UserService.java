@@ -13,17 +13,15 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 유저 등록
-    public User save(UserDTO userDTO) {
+    public void save(UserDTO userDTO) {
         User user = userDTO.toEntity();
         userRepository.save(user);
-        return user;
     }
 
     // 유저 수정
-    public User update(Long id, UserDTO userDTO) {
+    public void update(Long id, UserDTO userDTO) {
         User updateUser = userRepository.findById(id).orElse(null);
         updateUser.update(userDTO);
-        return updateUser;
     }
 
     // 유저 삭제
