@@ -1,7 +1,10 @@
 package com.example.restfulcrud;
 
+import ch.qos.logback.core.spi.ErrorCodes;
+import com.sun.jdi.request.DuplicateRequestException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -14,6 +17,10 @@ public class UserService {
 
     // 유저 등록
     public void save(UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new DuplicateRequestException("유저 등록 실패\n(이미 존재하는 이메일)");
+        }
+
         User user = userDTO.toEntity();
         userRepository.save(user);
     }
