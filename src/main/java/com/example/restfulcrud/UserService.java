@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -57,8 +58,15 @@ public class UserService {
                 .build();
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> UserDTO.builder()
+                        .name(user.getName())
+                        .age(user.getAge())
+                        .email(user.getEmail())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }
