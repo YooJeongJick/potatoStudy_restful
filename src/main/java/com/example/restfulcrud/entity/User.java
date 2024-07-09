@@ -1,5 +1,6 @@
-package com.example.restfulcrud;
+package com.example.restfulcrud.entity;
 
+import com.example.restfulcrud.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

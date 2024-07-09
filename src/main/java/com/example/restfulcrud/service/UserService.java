@@ -1,13 +1,14 @@
-package com.example.restfulcrud;
+package com.example.restfulcrud.service;
 
-import ch.qos.logback.core.spi.ErrorCodes;
+import com.example.restfulcrud.dto.UserDTO;
+import com.example.restfulcrud.entity.User;
 import com.example.restfulcrud.error.ErrorCode;
 import com.example.restfulcrud.error.exception.DuplicateException;
-import com.sun.jdi.request.DuplicateRequestException;
-import jakarta.transaction.Transactional;
+import com.example.restfulcrud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

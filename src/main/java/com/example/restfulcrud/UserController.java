@@ -1,5 +1,7 @@
 package com.example.restfulcrud;
 
+import com.example.restfulcrud.dto.UserDTO;
+import com.example.restfulcrud.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

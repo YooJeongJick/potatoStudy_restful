@@ -1,5 +1,6 @@
-package com.example.restfulcrud;
+package com.example.restfulcrud.repository;
 
+import com.example.restfulcrud.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
