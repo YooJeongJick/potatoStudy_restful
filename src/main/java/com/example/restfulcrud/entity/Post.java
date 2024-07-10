@@ -1,7 +1,10 @@
 package com.example.restfulcrud.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
+// post
 @Entity
 public class Post {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

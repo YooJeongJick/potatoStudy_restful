@@ -1,4 +1,4 @@
-package com.example.restfulcrud;
+package com.example.restfulcrud.controller;
 
 import com.example.restfulcrud.dto.UserDTO;
 import com.example.restfulcrud.service.UserService;
