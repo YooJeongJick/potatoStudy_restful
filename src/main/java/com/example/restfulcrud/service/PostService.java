@@ -18,4 +18,9 @@ public class PostService {
         Post post = postDTO.toEntity();
         postRepository.save(post);
     }
+
+    public void update(Long id, PostDTO postDTO) {
+        Post updatePost = postRepository.findById(id).orElse(null);
+        updatePost.update(postDTO);
+    }
 }

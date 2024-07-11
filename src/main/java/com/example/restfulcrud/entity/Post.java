@@ -1,5 +1,6 @@
 package com.example.restfulcrud.entity;
 
+import com.example.restfulcrud.dto.PostDTO;
 import jakarta.persistence.*;
 import lombok.Builder;
 
@@ -13,4 +14,9 @@ public class Post {
 
     private String title;
     private String content;
+
+    public void update(PostDTO postDTO) {
+        this.title = title;
+        this.content = content;
+    }
 }
