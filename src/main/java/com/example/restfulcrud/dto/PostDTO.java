@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-// update
 @AllArgsConstructor
-// post
 public class PostDTO {
     private String title;
     private String content;
