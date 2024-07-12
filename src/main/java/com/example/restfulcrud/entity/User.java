@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Entity
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +32,10 @@ public class User {
         this.name = userDTO.getName();
         this.age = userDTO.getAge();
         this.email = userDTO.getEmail();
+    }
+
+    public void addPost(Post post) {
+        this.addPost(post);
     }
 
 }

@@ -14,9 +14,9 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping()
-    public ResponseEntity<String> create(@RequestBody PostDTO postDTO) {
-        postService.save(postDTO);
+    @PostMapping("/{user_id}")
+    public ResponseEntity<String> create(@PathVariable Long user_id, @RequestBody PostDTO postDTO) {
+        postService.save(user_id, postDTO);
         return ResponseEntity.ok().body("게시글 등록 완료");
     }
 

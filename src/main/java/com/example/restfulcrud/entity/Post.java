@@ -20,6 +20,10 @@ public class Post {
     private String title;
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public void update(PostDTO postDTO) {
         this.title = postDTO.getTitle();
         this.content = postDTO.getContent();
