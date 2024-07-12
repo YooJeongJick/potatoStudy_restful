@@ -26,5 +26,16 @@ public class PostController {
         return ResponseEntity.ok().body("게시글 수정 완료");
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        postService.delete(id);
+        return ResponseEntity.ok().body("게시글 삭제 완료");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> findById(@PathVariable Long id) {
+        PostDTO postInfo = postService.findById(id);
+        return ResponseEntity.ok(postInfo);
+    }
 
 }

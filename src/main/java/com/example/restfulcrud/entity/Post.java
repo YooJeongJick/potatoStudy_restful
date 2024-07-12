@@ -4,10 +4,12 @@ import com.example.restfulcrud.dto.PostDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Entity
+@Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {

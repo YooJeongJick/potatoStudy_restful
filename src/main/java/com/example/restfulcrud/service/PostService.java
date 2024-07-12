@@ -23,4 +23,14 @@ public class PostService {
         Post updatePost = postRepository.findById(id).orElse(null);
         updatePost.update(postDTO);
     }
+
+    public void delete(Long id) { postRepository.deleteById(id); }
+
+    public PostDTO findById(Long id) {
+        Post findPost = postRepository.findById(id).orElse(null);
+        return PostDTO.builder()
+                .title(findPost.getTitle())
+                .content(findPost.getContent())
+                .build();
+    }
 }
