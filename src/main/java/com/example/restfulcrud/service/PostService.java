@@ -25,9 +25,12 @@ public class PostService {
 //        if (writer == null)
 //            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
 
-        Post post = postDTO.toEntity();
-        Post savePost = postRepository.save(post);
-        writer.addPost(savePost);
+        Post post = Post.builder()
+                .user(writer)
+                .title(postDTO.getTitle())
+                .content(postDTO.getContent())
+                .build();
+        postRepository.save(post);
     }
 
     public void update(Long id, PostDTO postDTO) {

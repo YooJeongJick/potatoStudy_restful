@@ -34,8 +34,4 @@ public class User {
         this.email = userDTO.getEmail();
     }
 
-    public void addPost(Post post) {
-        this.addPost(post);
-    }
-
 }

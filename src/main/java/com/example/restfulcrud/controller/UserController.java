@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok().body("유저 삭제 완료");
     }
 
-    @GetMapping("id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
         UserDTO userInfo = userService.findById(id);
         return ResponseEntity.ok(userInfo);

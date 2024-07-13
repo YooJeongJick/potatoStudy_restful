@@ -11,13 +11,4 @@ import lombok.Getter;
 public class PostDTO {
     private String title;
     private String content;
-
-    public Post toEntity() {
-        Post post = Post.builder()
-                .title(this.title)
-                .content(this.content)
-                .build();
-        return post;
-    }
-
 }
