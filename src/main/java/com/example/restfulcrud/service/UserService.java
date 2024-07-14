@@ -4,6 +4,7 @@ import com.example.restfulcrud.dto.UserDTO;
 import com.example.restfulcrud.entity.User;
 import com.example.restfulcrud.error.ErrorCode;
 import com.example.restfulcrud.error.exception.DuplicateException;
+import com.example.restfulcrud.error.exception.NotFoundException;
 import com.example.restfulcrud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    // 유저 등록
     public void save(UserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new DuplicateException("이미 존재하는 이메일", ErrorCode.FORBIDDEN_EXCEPTION);
@@ -29,20 +29,31 @@ public class UserService {
         userRepository.save(user);
     }
 
-    // 유저 수정
     public void update(Long id, UserDTO userDTO) {
         User updateUser = userRepository.findById(id).orElse(null);
+        if (updateUser == null)
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+        if (!updateUser.getEmail().equals(userDTO.getEmail())) {
+            if (userRepository.existsByEmail(userDTO.getEmail()))
+             throw new NotFoundException("이미 존재하는 이메일", ErrorCode.FORBIDDEN_EXCEPTION);
+        }
+
         updateUser.update(userDTO);
     }
 
-    // 유저 삭제
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        User deleteUser = userRepository.findById(id).orElse(null);
+        if (deleteUser == null)
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+
+        userRepository.delete(deleteUser);
     }
 
-    // 유저 검색
     public UserDTO findById(Long id) {
         User findUser = userRepository.findById(id).orElse(null);
+        if (findUser == null)
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+
         return UserDTO.builder()
                 .name(findUser.getName())
                 .age(findUser.getAge())
@@ -52,6 +63,9 @@ public class UserService {
 
     public UserDTO findByEmail(String email) {
         User findUser = userRepository.findByEmail(email);
+        if (findUser == null)
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+
         return UserDTO.builder()
                 .name(findUser.getName())
                 .age(findUser.getAge())

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -38,9 +39,9 @@ public class UserController {
         return ResponseEntity.ok(userInfo);
     }
 
-    @GetMapping("email/{email}")
-    public ResponseEntity<UserDTO> findByEmail(@PathVariable String email) {
-        UserDTO userInfo = userService.findByEmail(email);
+    @GetMapping()
+    public ResponseEntity<UserDTO> findByEmail(@RequestBody Map<String, String> emailMap) {
+        UserDTO userInfo = userService.findByEmail(emailMap.get("email"));
         return ResponseEntity.ok(userInfo);
     }
 

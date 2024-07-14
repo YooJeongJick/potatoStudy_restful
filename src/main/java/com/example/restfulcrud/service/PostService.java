@@ -5,6 +5,7 @@ import com.example.restfulcrud.entity.Post;
 import com.example.restfulcrud.entity.User;
 import com.example.restfulcrud.error.ErrorCode;
 import com.example.restfulcrud.error.exception.DuplicateException;
+import com.example.restfulcrud.error.exception.NotFoundException;
 import com.example.restfulcrud.repository.PostRepository;
 import com.example.restfulcrud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,8 @@ public class PostService {
 
     public void save(Long user_id, PostDTO postDTO) {
         User writer = userRepository.findById(user_id).orElse(null);
-
-//        if (writer == null)
-//            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+        if (writer == null)
+            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
 
         Post post = Post.builder()
                 .user(writer)
@@ -35,13 +35,25 @@ public class PostService {
 
     public void update(Long id, PostDTO postDTO) {
         Post updatePost = postRepository.findById(id).orElse(null);
+        if (updatePost == null)
+            throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
+
         updatePost.update(postDTO);
     }
 
-    public void delete(Long id) { postRepository.deleteById(id); }
+    public void delete(Long id) {
+        Post deletePost = postRepository.findById(id).orElse(null);
+        if (deletePost == null)
+            throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
+
+        postRepository.delete(deletePost);
+    }
 
     public PostDTO findById(Long id) {
         Post findPost = postRepository.findById(id).orElse(null);
+        if (findPost == null)
+            throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
+
         return PostDTO.builder()
                 .title(findPost.getTitle())
                 .content(findPost.getContent())
