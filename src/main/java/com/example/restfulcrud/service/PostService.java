@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -59,4 +62,22 @@ public class PostService {
                 .content(findPost.getContent())
                 .build();
     }
+
+    public List<PostDTO> findByUser(Long user_id) {
+        User writer = userRepository.findById(user_id).orElse(null);
+        if (writer == null)
+            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+
+        List<Post> posts = writer.getPosts();
+        if (posts == null)
+            throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
+
+        return posts.stream()
+                .map(post -> PostDTO.builder()
+                        .content(post.getContent())
+                        .title(post.getTitle())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 }

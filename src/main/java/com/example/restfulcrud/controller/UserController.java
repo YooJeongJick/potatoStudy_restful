@@ -35,14 +35,14 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        UserDTO userInfo = userService.findById(id);
-        return ResponseEntity.ok(userInfo);
+        UserDTO user = userService.findById(id);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping()
     public ResponseEntity<UserDTO> findByEmail(@RequestBody Map<String, String> emailMap) {
-        UserDTO userInfo = userService.findByEmail(emailMap.get("email"));
-        return ResponseEntity.ok(userInfo);
+        UserDTO user = userService.findByEmail(emailMap.get("email"));
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/all")

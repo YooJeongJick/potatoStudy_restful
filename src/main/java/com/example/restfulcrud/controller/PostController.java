@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/post")
 @RequiredArgsConstructor
@@ -34,8 +36,14 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> findById(@PathVariable Long id) {
-        PostDTO postInfo = postService.findById(id);
-        return ResponseEntity.ok(postInfo);
+        PostDTO post = postService.findById(id);
+        return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("user/{user_id}")
+    public ResponseEntity<List<PostDTO>> findByUser(@PathVariable Long user_id) {
+        List<PostDTO> postByUser = postService.findByUser(user_id);
+        return ResponseEntity.ok(postByUser);
     }
 
 }

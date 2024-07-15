@@ -75,6 +75,9 @@ public class UserService {
 
     public List<UserDTO> findAll() {
         List<User> users = userRepository.findAll();
+        if (users.isEmpty())
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+
         return users.stream()
                 .map(user -> UserDTO.builder()
                         .name(user.getName())
