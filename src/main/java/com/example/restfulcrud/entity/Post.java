@@ -20,6 +20,8 @@ public class Post {
     private String title;
     private String content;
 
+    private int likeCount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

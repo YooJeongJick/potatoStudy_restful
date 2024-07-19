@@ -1,6 +1,7 @@
 package com.example.restfulcrud.service;
 
 import com.example.restfulcrud.dto.PostDTO;
+import com.example.restfulcrud.dto.PostFindDTO;
 import com.example.restfulcrud.entity.Post;
 import com.example.restfulcrud.entity.User;
 import com.example.restfulcrud.error.ErrorCode;
@@ -52,18 +53,19 @@ public class PostService {
         postRepository.delete(deletePost);
     }
 
-    public PostDTO findById(Long id) {
+    public PostFindDTO findById(Long id) {
         Post findPost = postRepository.findById(id).orElse(null);
         if (findPost == null)
             throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
 
-        return PostDTO.builder()
+        return PostFindDTO.builder()
                 .title(findPost.getTitle())
                 .content(findPost.getContent())
+                .likeCount(findPost.getLikeCount())
                 .build();
     }
 
-    public List<PostDTO> findByUser(Long user_id) {
+    public List<PostFindDTO> findByUser(Long user_id) {
         User writer = userRepository.findById(user_id).orElse(null);
         if (writer == null)
             throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
@@ -73,9 +75,10 @@ public class PostService {
             throw new NotFoundException("존재하지 않는 게시글", ErrorCode.NOT_FOUND_EXCEPTION);
 
         return posts.stream()
-                .map(post -> PostDTO.builder()
+                .map(post -> PostFindDTO.builder()
                         .content(post.getContent())
                         .title(post.getTitle())
+                        .likeCount(post.getLikeCount())
                         .build())
                 .collect(Collectors.toList());
     }

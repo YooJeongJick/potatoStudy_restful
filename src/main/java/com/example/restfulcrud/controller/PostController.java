@@ -1,6 +1,7 @@
 package com.example.restfulcrud.controller;
 
 import com.example.restfulcrud.dto.PostDTO;
+import com.example.restfulcrud.dto.PostFindDTO;
 import com.example.restfulcrud.dto.UserDTO;
 import com.example.restfulcrud.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,14 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> findById(@PathVariable Long id) {
-        PostDTO post = postService.findById(id);
+    public ResponseEntity<PostFindDTO> findById(@PathVariable Long id) {
+        PostFindDTO post = postService.findById(id);
         return ResponseEntity.ok(post);
     }
 
     @GetMapping("user/{user_id}")
-    public ResponseEntity<List<PostDTO>> findByUser(@PathVariable Long user_id) {
-        List<PostDTO> postByUser = postService.findByUser(user_id);
+    public ResponseEntity<List<PostFindDTO>> findByUser(@PathVariable Long user_id) {
+        List<PostFindDTO> postByUser = postService.findByUser(user_id);
         return ResponseEntity.ok(postByUser);
     }
 
