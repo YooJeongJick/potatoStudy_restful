@@ -30,4 +30,12 @@ public class Post {
         this.title = postDTO.getTitle();
         this.content = postDTO.getContent();
     }
+
+    public void upLikeCount() {
+        this.likeCount += 1;
+    }
+    public void downLikeCount() {
+        this.likeCount -= 1;
+    }
+
 }

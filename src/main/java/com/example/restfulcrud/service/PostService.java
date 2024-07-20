@@ -27,7 +27,7 @@ public class PostService {
     public void save(Long user_id, PostDTO postDTO) {
         User writer = userRepository.findById(user_id).orElse(null);
         if (writer == null)
-            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
 
         Post post = Post.builder()
                 .user(writer)
@@ -68,7 +68,7 @@ public class PostService {
     public List<PostFindDTO> findByUser(Long user_id) {
         User writer = userRepository.findById(user_id).orElse(null);
         if (writer == null)
-            throw new DuplicateException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
+            throw new NotFoundException("존재하지 않는 유저", ErrorCode.NOT_FOUND_EXCEPTION);
 
         List<Post> posts = writer.getPosts();
         if (posts == null)
